@@ -1,6 +1,7 @@
 import AnimatedBackground from "@/components/animated-background"
 import { Code, Globe, Server, Layers } from "lucide-react"
 import Image from "next/image"
+import { useRouter } from 'next/router'
 
 export default function About() {
   const skills = [

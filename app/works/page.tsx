@@ -7,6 +7,7 @@ import AnimatedBackground from "@/components/animated-background"
 import { ExternalLink, Github, Upload, Plus } from "lucide-react"
 import ProjectModal from "@/components/project-modal"
 import { getProjects } from "@/lib/api"
+import { useRouter } from 'next/router'
 
 // Define a simpler Project interface
 interface Project {

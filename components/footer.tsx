@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { useRouter } from 'next/router'
 import { Github, Linkedin, ExternalLink } from "lucide-react"
 
 export default function Footer() {
