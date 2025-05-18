@@ -26,8 +26,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
+      # Add this step to create .env.local file
+      - name: Create .env.local file
+        run: |
+          echo "MYSQL_HOST=localhost" > .env.local
+          echo "MYSQL_USER=root" >> .env.local
+          echo "MYSQL_PASSWORD=madiha123$" >> .env.local
+          echo "MYSQL_DATABASE=portfolio" >> .env.local
+          echo "NEXT_PUBLIC_BASE_PATH=/my-awosome-portfolio" >> .env.local
+        
       - name: Build with Next.js
         run: npm run build
+        
+      # Add this step to create .nojekyll file
+      - name: Add .nojekyll file
+        run: touch out/.nojekyll
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
