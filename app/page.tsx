@@ -1,14 +1,20 @@
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight } from "lucide-react"
-import AnimatedBackground from "@/components/animated-background"
-import ReviewsSection from "@/components/reviews-section"
+
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import AnimatedBackground from "@/components/animated-background";
+import ReviewsSection from "@/components/reviews-section";
+import About from "./about/page";
+import Works from "./works/page";
+import Contact from "./contact/page";
+import Footer from "@/components/footer"
 
 export default function Home() {
   return (
     <div className="relative min-h-screen">
       <AnimatedBackground />
       <div className="relative z-10">
+        {/* Hero Section */}
         <div className="container mx-auto px-4 py-20">
           <div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
             <div className="mb-8 relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-700 shadow-lg">
@@ -39,13 +45,20 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Reviews Section */}
         <div className="bg-gray-900 py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-12 text-center text-white">What People Say</h2>
             <ReviewsSection />
           </div>
         </div>
+
+        {/* About, Works, and Contact Sections */}
+        <About />
+        <Works />
+        <Contact />
+        <Footer />
       </div>
     </div>
-  )
+  );
 }

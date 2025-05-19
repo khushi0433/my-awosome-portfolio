@@ -1,68 +1,72 @@
-import { NextResponse } from "next/server"
-import { query, initDatabase } from "@/lib/db"
-
-let dbInitialized = false
+import { NextResponse } from "next/server";
+import { query, initDatabase } from "../../../lib/db";
 
 export async function GET() {
   try {
-    if (!dbInitialized) {
-      await initDatabase()
-      dbInitialized = true
-    }
+    // Initialize the database (ensure it's done for every request in serverless environments)
+    await initDatabase();
 
-    const projects = (await query("SELECT * FROM projects ORDER BY createdAt DESC")) as any[]
+    // Fetch projects from the database
+    const projects = (await query("SELECT * FROM projects ORDER BY createdAt DESC")) as Project[];
 
+    // Format the projects
     const formattedProjects = projects.map((project) => ({
       ...project,
-      tags: JSON.parse(project.tags || "[]"),
-    }))
+      tags: safeParseJSON(project.tags, []), // Safely parse tags
+    }));
 
-    return NextResponse.json(formattedProjects)
+    // Return the formatted projects as JSON
+    return NextResponse.json(formattedProjects);
   } catch (error) {
-    console.error("Error fetching projects:", error)
-    return NextResponse.json({ error: "Failed to fetch projects" }, { status: 500 })
+    console.error("Error fetching projects:", error);
+    return NextResponse.json(
+      { error: "An error occurred while fetching projects. Please try again later." },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(request: Request) {
   try {
-    if (!dbInitialized) {
-      await initDatabase()
-      dbInitialized = true
-    }
+    // Initialize the database
+    await initDatabase();
 
-    const data = await request.json()
-
-    if (!data.title || !data.description) {
-      return NextResponse.json({ error: "Title and description are required" }, { status: 400 })
-    }
-
-    const tagsJson = JSON.stringify(data.tags || [])
+    const body = await request.json();
 
     const result = await query(
-      `INSERT INTO projects (title, description, image, tags, category, liveLink, githubLink)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [
-        data.title,
-        data.description,
-        data.image || "/placeholder.svg?height=600&width=800",
-        tagsJson,
-        data.category || "frontend",
-        data.liveLink || "",
-        data.githubLink || "",
-      ],
-    )
+      "INSERT INTO projects (name, description, tags, createdAt) VALUES (?, ?, ?, ?)",
+      [body.name, body.description, JSON.stringify(body.tags), new Date()]
+    );
 
+    const insertId = (result as any)?.insertId;
 
-    const insertedId = (result as any).insertId
-    const [insertedProject] = (await query("SELECT * FROM projects WHERE id = ?", [insertedId])) as any[]
+    if (!insertId) {
+      throw new Error("Failed to retrieve the insertId from the database response.");
+    }
 
-
-    insertedProject.tags = JSON.parse(insertedProject.tags || "[]")
-
-    return NextResponse.json(insertedProject, { status: 201 })
+  
+    return NextResponse.json({ success: true, id: insertId });
   } catch (error) {
-    console.error("Error creating project:", error)
-    return NextResponse.json({ error: "Failed to create project" }, { status: 500 })
+    console.error("Error creating project:", error);
+    return NextResponse.json(
+      { error: "An error occurred while creating the project. Please try again later." },
+      { status: 500 }
+    );
   }
+}
+
+function safeParseJSON<T>(json: string | null, fallback: T): T {
+  try {
+    return json ? JSON.parse(json) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+interface Project {
+  id: number;
+  name: string;
+  description: string;
+  tags: string | null;
+  createdAt: string;
 }
