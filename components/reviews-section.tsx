@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { Star, Send } from "lucide-react"
-import { getReviews, addReview } from "@/lib/api"
+import { getReviews, addReview } from "lib/api"
 
 interface Review {
   id: string
@@ -83,6 +83,7 @@ export default function ReviewsSection() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log("handleSubmit called");
     e.preventDefault()
     setIsSubmitting(true)
 
@@ -109,7 +110,6 @@ export default function ReviewsSection() {
         rating: 5,
         comment: "",
       })
-
 
       setTimeout(() => {
         setSubmitStatus(null)
@@ -154,7 +154,31 @@ export default function ReviewsSection() {
                   ))}
                 </div>
               </div>
-              <span className="text-sm text-gray-400">{review.date}</span>
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-400">{review.date}</span>
+                <button
+                  onClick={async () => {
+                    if (confirm("Are you sure you want to delete this review?")) {
+                      try {
+                        const response = await fetch(`/api/reviews?id=${review.id}`, {
+                          method: "DELETE",
+                        });
+                        if (!response.ok) {
+                          throw new Error("Failed to delete review");
+                        }
+                        setReviews((prev) => prev.filter((r) => r.id !== review.id));
+                      } catch (error) {
+                        console.error("Error deleting review:", error);
+                        alert("Failed to delete review. Please try again.");
+                      }
+                    }
+                  }}
+                  className="text-red-500 hover:text-red-700 text-sm font-semibold"
+                  aria-label="Delete review"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
             <p className="text-gray-300">{review.comment}</p>
           </div>
@@ -179,7 +203,61 @@ export default function ReviewsSection() {
               className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 text-white"
             />
           </div>
+
+          <div>
+            <label htmlFor="comment" className="block text-sm font-medium text-gray-300 mb-1">
+              Your Review
+            </label>
+            <textarea
+              id="comment"
+              name="comment"
+              value={newReview.comment}
+              onChange={handleChange}
+              required
+              rows={4}
+              className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 text-white"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-1">Rating</label>
+            <div className="flex space-x-1">
+              {[...Array(5)].map((_, i) => {
+                const ratingValue = i + 1
+                return (
+                  <button
+                    key={ratingValue}
+                    type="button"
+                    onClick={() => handleRatingChange(ratingValue)}
+                    className={`p-1 rounded ${ratingValue <= newReview.rating ? "text-yellow-400" : "text-gray-500"}`}
+                    aria-label={`${ratingValue} star${ratingValue > 1 ? "s" : ""}`}
+                  >
+                    <Star className="h-6 w-6" />
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50"
+          >
+            {isSubmitting ? "Submitting..." : "Submit Review"}
+            <Send className="ml-2 h-5 w-5" />
+          </button>
         </form>
+
+        {submitStatus && (
+          <div
+            className={`mt-4 p-3 rounded-md text-center ${
+              submitStatus.success ? "bg-green-600 text-white" : "bg-red-600 text-white"
+            }`}
+          >
+            {submitStatus.message}
+          </div>
+        )}
       </div>
     </div>
   )

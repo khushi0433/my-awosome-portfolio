@@ -1,7 +1,7 @@
-import AnimatedBackground from "@/components/animated-background"
-import { Code, Globe, Server, Layers } from "lucide-react"
-import Image from "next/image"
-import { useRouter } from 'next/router'
+import AnimatedBackground from "components/animated-background";
+import { Code, Globe, Server, Layers } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from 'next/router';
 
 export default function About() {
   const skills = [
@@ -12,7 +12,7 @@ export default function About() {
     { name: "Python", level: 60 },
     { name: "Django", level: 55 },
     { name: "API Integration", level: 60 },
-  ]
+  ];
 
   return (
     <div className="relative min-h-screen">
@@ -110,5 +110,5 @@ export default function About() {
         </div>
       </div>
     </div>
-  )
+  );
 }

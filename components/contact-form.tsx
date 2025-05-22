@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { Send } from "lucide-react"
-import { submitContactForm } from "@/lib/api"
+import { submitContactForm } from "lib/api"
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({

@@ -1,13 +1,12 @@
-
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import AnimatedBackground from "@/components/animated-background";
-import ReviewsSection from "@/components/reviews-section";
+import ReviewsSection from "components/reviews-section";
 import About from "./about/page";
 import Works from "./works/page";
 import Contact from "./contact/page";
-import Footer from "@/components/footer"
+import Footer from "components/footer";
 
 export default function Home() {
   return (

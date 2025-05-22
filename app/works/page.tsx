@@ -3,32 +3,22 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import AnimatedBackground from "@/components/animated-background"
+import AnimatedBackground from "components/animated-background"
 import { ExternalLink, Github, Upload, Plus } from "lucide-react"
-import ProjectModal from "@/components/project-modal"
-import { getProjects } from "@/lib/api"
+import ProjectModal from "components/project-modal"
+import { getProjects } from "lib/api"
 import { useRouter } from 'next/router'
 
-// Define a simpler Project interface
-interface Project {
-  id: number | string
-  title: string
-  description: string
-  image: string
-  tags: string[]
-  category: string
-  liveLink: string
-  githubLink: string
-}
+import type { Project } from "types/project"
 
 // Define the Works component
 export default function Works() {
   // State declarations
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<import("types/project").Project[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [selectedProject, setSelectedProject] = useState<import("types/project").Project | undefined>(undefined)
   const [filter, setFilter] = useState("all")
 
   // Load projects on component mount
@@ -37,7 +27,12 @@ export default function Works() {
       try {
         setIsLoading(true)
         const data = await getProjects()
-        setProjects(data)
+        // Convert all project ids to string to match Project type
+        const projectsWithStringIds = data.map((project: any) => ({
+          ...project,
+          id: String(project.id),
+        }))
+        setProjects(projectsWithStringIds)
       } catch (err) {
         console.error("Failed to load projects:", err)
         setError("Failed to load projects. Please try again later.")
@@ -45,7 +40,7 @@ export default function Works() {
         // Fallback data
         setProjects([
           {
-            id: 1,
+            id: "1",
             title: "Personal Blog",
             description: "A responsive blog built with React and Tailwind CSS.",
             image: "/placeholder.svg?height=600&width=800",
@@ -55,7 +50,7 @@ export default function Works() {
             githubLink: "#",
           },
           {
-            id: 2,
+            id: "2",
             title: "E-commerce Platform",
             description: "A full-featured online store with product listings, cart, and checkout.",
             image: "/placeholder.svg?height=600&width=800",
@@ -65,7 +60,7 @@ export default function Works() {
             githubLink: "#",
           },
           {
-            id: 3,
+            id: "3",
             title: "Task Manager",
             description: "A full-stack task management application with user authentication.",
             image: "/placeholder.svg?height=600&width=800",
@@ -75,7 +70,7 @@ export default function Works() {
             githubLink: "#",
           },
           {
-            id: 4,
+            id: "4",
             title: "Portfolio Website",
             description: "A modern portfolio website template for creative professionals.",
             image: "/placeholder.svg?height=600&width=800",
@@ -85,7 +80,7 @@ export default function Works() {
             githubLink: "#",
           },
           {
-            id: 5,
+            id: "5",
             title: "Inventory Management System",
             description: "A Django-based inventory management system for small businesses.",
             image: "/placeholder.svg?height=600&width=800",
@@ -95,7 +90,7 @@ export default function Works() {
             githubLink: "#",
           },
           {
-            id: 6,
+            id: "6",
             title: "RESTful API Service",
             description: "A Python Flask API service for a mobile application.",
             image: "/placeholder.svg?height=600&width=800",
@@ -105,7 +100,7 @@ export default function Works() {
             githubLink: "#",
           },
           {
-            id: 7,
+            id: "7",
             title: "Data Analysis Dashboard",
             description: "A Django dashboard for visualizing and analyzing business metrics.",
             image: "/placeholder.svg?height=600&width=800",
@@ -115,7 +110,7 @@ export default function Works() {
             githubLink: "#",
           },
           {
-            id: 8,
+            id: "8",
             title: "Automated Testing Framework",
             description: "A Python-based testing framework for web applications.",
             image: "/placeholder.svg?height=600&width=800",
@@ -134,19 +129,23 @@ export default function Works() {
   }, [])
 
   // Modal handlers
-  const openModal = (project: Project | null = null) => {
+  const openModal = (project: Project | undefined = undefined) => {
     setSelectedProject(project)
     setIsModalOpen(true)
   }
 
   const closeModal = () => {
     setIsModalOpen(false)
-    setSelectedProject(null)
+    setSelectedProject(undefined)
   }
 
   // Project CRUD operations
-  const handleAddProject = async (newProject: Omit<Project, "id">) => {
+  const handleAddProject = async (newProject: Project) => {
     try {
+      // Convert id to string if present
+      if (newProject.id) {
+        newProject.id = String(newProject.id)
+      }
       const response = await fetch("/api/projects", {
         method: "POST",
         headers: {
@@ -170,6 +169,10 @@ export default function Works() {
 
   const handleUpdateProject = async (updatedProject: Project) => {
     try {
+      // Convert id to string if present
+      if (updatedProject.id) {
+        updatedProject.id = String(updatedProject.id)
+      }
       const response = await fetch(`/api/projects/${updatedProject.id}`, {
         method: "PUT",
         headers: {
@@ -357,8 +360,6 @@ export default function Works() {
           )}
         </div>
       </div>
-
-      {/* Project modal */}
       {isModalOpen && (
         <ProjectModal
           project={selectedProject || undefined}

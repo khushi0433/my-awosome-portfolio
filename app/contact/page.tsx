@@ -1,6 +1,6 @@
-import AnimatedBackground from "@/components/animated-background"
+import AnimatedBackground from "components/animated-background"
 import { Mail, Phone, MapPin } from "lucide-react"
-import ContactForm from "@/components/contact-form"
+import ContactForm from "components/contact-form"
 import Image from "next/image"
 
 export default function Contact() {

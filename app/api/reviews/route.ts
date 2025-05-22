@@ -1,6 +1,8 @@
+export const dynamic = "force-static";
 
 import { NextResponse } from "next/server";
 import { query, initDatabase } from "../../../lib/db";
+import { handleError } from "../../../lib/errorHandler";
 
 let dbInitialized = false;
 
@@ -14,8 +16,8 @@ export async function GET() {
     const reviews = await query("SELECT * FROM reviews ORDER BY createdAt DESC");
     return NextResponse.json(reviews);
   } catch (error) {
-    console.error("Error fetching reviews:", error);
-    return NextResponse.json({ error: "Failed to fetch reviews" }, { status: 500 });
+    const { status, body } = handleError(error, "Error fetching reviews:");
+    return NextResponse.json(body, { status });
   }
 }
 
@@ -48,7 +50,30 @@ export async function POST(request: Request) {
 
     return NextResponse.json(insertedReview, { status: 201 });
   } catch (error) {
-    console.error("Error creating review:", error);
-    return NextResponse.json({ error: "Failed to create review" }, { status: 500 });
+    const { status, body } = handleError(error, "Error creating review:");
+    return NextResponse.json(body, { status });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    if (!dbInitialized) {
+      await initDatabase();
+      dbInitialized = true;
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "Review id is required" }, { status: 400 });
+    }
+
+    await query("DELETE FROM reviews WHERE id = ?", [id]);
+
+    return NextResponse.json({ success: true, message: "Review deleted successfully" });
+  } catch (error) {
+    const { status, body } = handleError(error, "Error deleting review:");
+    return NextResponse.json(body, { status });
   }
 }
