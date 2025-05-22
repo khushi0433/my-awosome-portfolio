@@ -1,25 +1,24 @@
-import { NextResponse } from "next/server"
+import { NextResponse, NextRequest } from "next/server"
 import { query, initDatabase } from "@/lib/db"
 
-// Initialize database on first request
 let dbInitialized = false
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     if (!dbInitialized) {
       await initDatabase()
       dbInitialized = true
     }
 
-    const id = params.id
+    const { id } = params
 
     const [project] = (await query("SELECT * FROM projects WHERE id = ?", [id])) as any[]
+
 
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 })
     }
 
-    // Parse JSON tags field
     project.tags = JSON.parse(project.tags || "[]")
 
     return NextResponse.json(project)
@@ -29,22 +28,20 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     if (!dbInitialized) {
       await initDatabase()
       dbInitialized = true
     }
 
-    const id = params.id
+    const { id } = params
     const data = await request.json()
 
-    // Validate required fields
     if (!data.title || !data.description) {
       return NextResponse.json({ error: "Title and description are required" }, { status: 400 })
     }
 
-    // Convert tags array to JSON string
     const tagsJson = JSON.stringify(data.tags || [])
 
     await query(
@@ -63,14 +60,12 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       ],
     )
 
-    // Get the updated project
     const [updatedProject] = (await query("SELECT * FROM projects WHERE id = ?", [id])) as any[]
 
     if (!updatedProject) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 })
     }
 
-    // Parse JSON tags field
     updatedProject.tags = JSON.parse(updatedProject.tags || "[]")
 
     return NextResponse.json(updatedProject)
@@ -80,17 +75,17 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     if (!dbInitialized) {
       await initDatabase()
       dbInitialized = true
     }
 
-    const id = params.id
+    const { id } = params
 
-    // Check if project exists
     const [project] = (await query("SELECT id FROM projects WHERE id = ?", [id])) as any[]
+
 
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 })
