@@ -1,6 +1,5 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { query, initDatabase } from "lib/db";
-
 
 async function ensureDatabaseInitialized() {
   await initDatabase();
@@ -11,7 +10,7 @@ interface Project {
   title: string;
   description: string;
   image: string;
-  tags: string | null;
+  tags: string | string[] | null;
   category: string;
   liveLink: string;
   githubLink: string;
@@ -25,19 +24,25 @@ function safeParseJSON<T>(json: string | null, fallback: T): T {
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = context.params;
 
   try {
     await ensureDatabaseInitialized();
 
-    const [project] = (await query("SELECT * FROM projects WHERE id = ?", [id])) as Project[];
+    const [project] = (await query("SELECT * FROM projects WHERE id = ?", [
+      id,
+    ])) as Project[];
 
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    project.tags = JSON.stringify(safeParseJSON(project.tags, []));
+    // Return tags as array, not stringified JSON string
+    project.tags = safeParseJSON(typeof project.tags === "string" ? project.tags : null, []);
 
     return NextResponse.json(project);
   } catch (error) {
@@ -46,8 +51,11 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = context.params;
 
   try {
     await ensureDatabaseInitialized();
@@ -55,7 +63,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     const data = await request.json();
 
     if (!data.title || !data.description) {
-      return NextResponse.json({ error: "Title and description are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Title and description are required" },
+        { status: 400 }
+      );
     }
 
     const tagsJson = JSON.stringify(data.tags || []);
@@ -76,13 +87,15 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       ]
     );
 
-    const [updatedProject] = (await query("SELECT * FROM projects WHERE id = ?", [id])) as Project[];
+    const [updatedProject] = (await query("SELECT * FROM projects WHERE id = ?", [
+      id,
+    ])) as Project[];
 
     if (!updatedProject) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    updatedProject.tags = JSON.stringify(safeParseJSON(updatedProject.tags, []));
+    updatedProject.tags = safeParseJSON(typeof updatedProject.tags === "string" ? updatedProject.tags : null, []);
 
     return NextResponse.json(updatedProject);
   } catch (error) {
@@ -91,13 +104,18 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = context.params;
 
   try {
     await ensureDatabaseInitialized();
 
-    const [project] = (await query("SELECT id FROM projects WHERE id = ?", [id])) as Project[];
+    const [project] = (await query("SELECT id FROM projects WHERE id = ?", [
+      id,
+    ])) as Project[];
 
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
