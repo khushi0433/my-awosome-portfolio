@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { query, initDatabase } from "lib/db";
+import { query, initDatabase } from  "../../../../lib/db";
 
 async function ensureDatabaseInitialized() {
   await initDatabase();
