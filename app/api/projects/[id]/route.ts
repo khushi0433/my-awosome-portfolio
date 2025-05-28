@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { query, initDatabase } from  "../../../../lib/db";
+import { query, initDatabase } from "@/lib/db";
 
 async function ensureDatabaseInitialized() {
   await initDatabase();
@@ -25,10 +25,10 @@ function safeParseJSON<T>(json: string | null, fallback: T): T {
 }
 
 export async function GET(
-  context: { params: { id: string }, request: NextRequest }
+  request: NextRequest,
+  context: { params: { id: string } }
 ) {
   const { id } = context.params;
-  const request = context.request;
 
   try {
     await ensureDatabaseInitialized();
@@ -41,8 +41,10 @@ export async function GET(
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    // Return tags as array, not stringified JSON string
-    project.tags = safeParseJSON(typeof project.tags === "string" ? project.tags : null, []);
+    project.tags = safeParseJSON(
+      typeof project.tags === "string" ? project.tags : null,
+      []
+    );
 
     return NextResponse.json(project);
   } catch (error) {
@@ -52,10 +54,10 @@ export async function GET(
 }
 
 export async function PUT(
-  context: { params: { id: string }, request: NextRequest }
+  request: NextRequest,
+  context: { params: { id: string } }
 ) {
   const { id } = context.params;
-  const request = context.request;
 
   try {
     await ensureDatabaseInitialized();
@@ -95,7 +97,10 @@ export async function PUT(
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    updatedProject.tags = safeParseJSON(typeof updatedProject.tags === "string" ? updatedProject.tags : null, []);
+    updatedProject.tags = safeParseJSON(
+      typeof updatedProject.tags === "string" ? updatedProject.tags : null,
+      []
+    );
 
     return NextResponse.json(updatedProject);
   } catch (error) {
@@ -105,10 +110,10 @@ export async function PUT(
 }
 
 export async function DELETE(
-  context: { params: { id: string }, request: NextRequest }
+  request: NextRequest,
+  context: { params: { id: string } }
 ) {
   const { id } = context.params;
-  const request = context.request;
 
   try {
     await ensureDatabaseInitialized();
