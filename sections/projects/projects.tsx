@@ -25,6 +25,34 @@ const Projects = () => {
     visible: { opacity: 1, x: 0 },
   };
 
+  const projects = [
+    {
+      span: "FullStack Application",
+      title: "React/Nodejs Email System",
+      description: "A modern Email & Notification Templates built with React Tailwind with backend system using nodejs/expressjs.",
+      image: "/project1.png",
+      link: "https://bookspace.vercel.app",
+      github: ""
+    },
+    {
+      span: "Frontend Application",
+      title: "TravelEase",
+      description: "A travel website with dynamic destinations and Tailwind animations.",
+      image: "/projects/travelease.png",
+      link: "https://travelease.vercel.app",
+      github: ""
+    },
+    {
+      span: "FullStack Application",
+      title: "Food Delivery App",
+      description: "React + Django based food ordering app with live menu and order tracking.",
+      image: "/projects/foodapp.png",
+      link: "https://foodapp.vercel.app",
+      github: "",
+    },
+  ];
+  
+
   return (
     <motion.section
       initial="hidden"
@@ -55,7 +83,7 @@ const Projects = () => {
           variants={titleVariants}
           className="text-[#b88a17] inline-block"
         >
-          Design Projects
+          FullStack Projects
         </motion.span>
       </motion.h1>
 
@@ -63,14 +91,14 @@ const Projects = () => {
         variants={containerVariants}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full justify-center max-w-[1200px] gap-6"
       >
-        {[1, 2, 3].map((item) => (
+        {projects.map((project, index) => (
           <motion.div
-            key={item}
+            key={index}
             variants={itemVariants}
             transition={{ type: "spring", stiffness: 100 }}
             className="w-full py-2"
           >
-            <ProjectCard />
+            <ProjectCard project ={ project }/>
           </motion.div>
         ))}
       </motion.div>

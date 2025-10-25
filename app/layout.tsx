@@ -6,9 +6,9 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 
 const abel = Abel({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
-  title: "Devalentine's Portfolio",
+  title: "Khushbu_WebDev Portfolio",
   description:
-    "A showcase of my web development projects, skills, and experience in software engineering.",
+    "A showcase of my web development projects, skills, and experience in software development.",
 };
 
 export default function RootLayout({

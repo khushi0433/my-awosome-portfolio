@@ -6,7 +6,19 @@ import { ny } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { AuroraText } from "@/components/ui/aurora-text";
 
-const ProjectCard = () => {
+type Project = {
+  span: string;
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+}
+
+type ProjectCardProps = {
+  project: Project;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -29,8 +41,8 @@ const ProjectCard = () => {
         transition={{ type: "spring", stiffness: 300 }}
       >
         <Image
-          src="/project.png"
-          alt="Project image"
+          src={project.image}
+          alt={project.title}
           fill
           className="object-cover w-full h-full absolute"
         />
@@ -38,24 +50,20 @@ const ProjectCard = () => {
 
       <div className="flex flex-col gap-3 pt-6">
         <span className="text-xs font-medium uppercase tracking-wider text-amber-500">
-          web dev
+          {project.span}
         </span>
 
-        <AuroraText className="text-2xl font-bold">E-commerce</AuroraText>
+        <AuroraText className="text-2xl font-bold">{project.title}</AuroraText>
 
         <p className="text-zinc-300 line-clamp-3">
-          Sint ullamco duis esse adipisicing occaecat reprehenderit cupidatat
-          aliquip consequat. Sit exercitation pariatur commodo aliquip velit ex
-          reprehenderit magna deserunt nisi dolor nostrud. Incididunt elit
-          aliquip excepteur labore laborum voluptate. Culpa ipsum deserunt sit
-          amet pariatur eiusmod eu cupidatat laborum fugiat aliquip est. Nulla
-          ut nisi aute ipsum aute in eiusmod velit ut. Proident amet duis
-          proident ad est. Eiusmod Lorem proident aute dolore cupidatat veniam
-          incididunt qui mollit aliqua irure cupidatat laborum.
+          {project.description}
         </p>
 
-        <div className="mt-4 flex items-center">
-          <motion.button
+        <div className="mt-4 flex items-center gap-4">
+          <motion.a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -65,12 +73,32 @@ const ProjectCard = () => {
                        dark:border-neutral-500/40 dark:bg-neutral-900 dark:bg-none dark:focus:ring-offset-blue-500
                         dark:focus-visible:ring-offset-blue-500"
           >
-            View Project
+            Demo
             <ArrowRight
               size={16}
               className="transition-transform duration-300 group-hover:translate-x-1"
             />
-          </motion.button>
+          </motion.a>
+
+          <motion.a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="group flex items-center gap-x-3 py-2 px-4 rounded-lg border
+                     bg-stone-100 focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500
+                      focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 dark:border-x-0 dark:border-b-0 dark:border-t-[1px]
+                       dark:border-neutral-500/40 dark:bg-neutral-900 dark:bg-none dark:focus:ring-offset-blue-500
+                        dark:focus-visible:ring-offset-blue-500"
+          >
+            Code
+            <ArrowRight
+              size={16}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </motion.a>
         </div>
       </div>
 
