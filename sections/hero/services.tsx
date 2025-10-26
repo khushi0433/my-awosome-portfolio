@@ -18,8 +18,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ number, title, description })
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <AuroraText className="text-5xl mb-4">{number}</AuroraText>
-      <h3 className="font-medium mb-2 text-xl text-amber-400 dark:text-amber-200" >{title}</h3>
+      <span className="text-5xl mb-4 text-white">{number}</span>
+      <h3 className="font-medium mb-2 text-xl text-white" >{title}</h3>
       <p className="text-muted-foreground">{description}</p>
     </motion.div>
   )
@@ -75,7 +75,7 @@ const Services = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <h2 className="text-4xl text-amber-500">Building_Scalable_Digital_Systems</h2>
+        <h2 className="text-4xl text-white">Building_Scalable_Digital_Systems</h2>
         <p className="mt-6 leading-relaxed md:max-w-md text-muted-foreground">
         I design and develop end-to-end web solutions using React, Next.js, and Node.js turning complex business needs into fast, reliable applications.
         </p>

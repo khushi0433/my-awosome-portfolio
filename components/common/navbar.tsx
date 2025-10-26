@@ -16,13 +16,20 @@ const NAV_ITEMS = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleScroll = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     id: string
   ) => {
     e.preventDefault();
+    if (!isMounted) return;
+    
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -32,6 +39,8 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    if (!isMounted) return;
+
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsOpen(false);
@@ -40,19 +49,21 @@ const Navbar = () => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isMounted]);
 
   useEffect(() => {
+    if (!isMounted) return;
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMounted]);
 
 
   const getButtonPosition = () => {
-    if (!menuButtonRef.current) return { top: 36, right: 36 };
+    if (!isMounted || !menuButtonRef.current) return { top: 36, right: 36 };
 
     const rect = menuButtonRef.current.getBoundingClientRect();
     return {

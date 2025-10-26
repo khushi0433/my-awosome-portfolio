@@ -12,6 +12,7 @@ type Project = {
   description: string;
   image: string;
   link: string;
+  github: string;
 }
 
 type ProjectCardProps = {
@@ -29,11 +30,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="relative p-4 z-10 w-full h-[510px] sm:max-w-96 rounded-lg border border-b-0
-                 bg-card focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500
-                  focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 border-zinc-300 dark:border-x-0 dark:border-b-0 dark:border-t-[1px]
-                   dark:border-neutral-500/40 dark:bg-neutral-900 dark:bg-none dark:focus:ring-offset-blue-500
-                    dark:focus-visible:ring-offset-blue-500 py-2"
+     className="relative p-4 z-10 w-full h-[510px] sm:max-w-96 rounded-lg border border-b-0 bg-card focus:rounded-full 
+     focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500 
+     focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 border-zinc-300 dark:border-x-0 
+     dark:border-b-0 dark:border-t-[1px] dark:border-neutral-500/40 dark:bg-neutral-900 dark:bg-none 
+     dark:focus:ring-offset-blue-500 dark:focus-visible:ring-offset-blue-500 py-2"
     >
       <motion.div
         className="w-full rounded-lg overflow-hidden h-1/2 relative"
@@ -49,13 +50,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       </motion.div>
 
       <div className="flex flex-col gap-3 pt-6">
-        <span className="text-xs font-medium uppercase tracking-wider text-amber-500">
+        <span className="text-xs font-medium uppercase tracking-wider text-white">
           {project.span}
         </span>
 
-        <AuroraText className="text-2xl font-bold">{project.title}</AuroraText>
+        <span className="text-2xl font-bold text-white">{project.title}</span>
 
-        <p className="text-zinc-300 line-clamp-3">
+        <p className="text-white line-clamp-3">
           {project.description}
         </p>
 
@@ -68,10 +69,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
             className="group flex items-center gap-x-3 py-2 px-4 rounded-lg border
-                     bg-stone-100 focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500
-                      focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 dark:border-x-0 dark:border-b-0 dark:border-t-[1px]
-                       dark:border-neutral-500/40 dark:bg-neutral-900 dark:bg-none dark:focus:ring-offset-blue-500
-                        dark:focus-visible:ring-offset-blue-500"
+                     bg-black text-white focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500
+                      focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 border-white/20 hover:bg-white hover:text-black transition-colors"
           >
             Demo
             <ArrowRight
@@ -81,17 +80,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </motion.a>
 
           <motion.a
-            href={project.link}
+            href={project.github}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
             className="group flex items-center gap-x-3 py-2 px-4 rounded-lg border
-                     bg-stone-100 focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500
-                      focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 dark:border-x-0 dark:border-b-0 dark:border-t-[1px]
-                       dark:border-neutral-500/40 dark:bg-neutral-900 dark:bg-none dark:focus:ring-offset-blue-500
-                        dark:focus-visible:ring-offset-blue-500"
+                     bg-black text-white focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500
+                      focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 border-white/20 hover:bg-white hover:text-black transition-colors"
           >
             Code
             <ArrowRight

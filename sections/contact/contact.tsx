@@ -117,10 +117,10 @@ export default function ContactForm() {
             animate={headerInView ? "visible" : "hidden"}
             className="space-y-2"
           >
-            <h1 className="text-4xl font-bold text-amber-500">
+            <h1 className="text-4xl font-bold text-white">
               Khushbu_Baloch
             </h1>
-            <h2 className="text-3xl  text-amber-300">Software Developer</h2>
+            <h2 className="text-3xl text-white">Software Developer</h2>
           </motion.div>
 
           <motion.div
@@ -130,7 +130,7 @@ export default function ContactForm() {
             animate={bioInView ? "visible" : "hidden"}
             className="border-t border-border pt-3"
           >
-            <p className="text-muted-foreground mt-3">
+            <p className="text-white mt-3">
               Connect_With_Me
             </p>
           </motion.div>
@@ -143,13 +143,13 @@ export default function ContactForm() {
             className="space-y-2"
           >
             <div>
-              <h3 className="text-sm text-muted-foreground">E-mail</h3>
-              <p className="font-medium">khushbubaloch01@gmail.com</p>
+              <h3 className="text-sm text-white/70">E-mail</h3>
+              <p className="font-medium text-white">khushbubaloch01@gmail.com</p>
             </div>
 
             <div>
-              <h3 className="text-sm text-muted-foreground">Phone</h3>
-              <p className="font-medium">+92 3021884972</p>
+              <h3 className="text-sm text-white/70">Phone</h3>
+              <p className="font-medium text-white">+92 3021884972</p>
             </div>
           </motion.div>
 
@@ -162,14 +162,14 @@ export default function ContactForm() {
           >
             <a
               href="#"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-b-0 bg-stone-100 dark:border-neutral-500/40 dark:bg-neutral-900 cursor-pointer hover:bg-amber-500/10 transition-colors"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#012E40] cursor-pointer hover:bg-white/10 transition-colors"
             >
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">Linkedin</span>
             </a>
             <a
               href="#"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-b-0 bg-stone-100 dark:border-neutral-500/40 dark:bg-neutral-900 cursor-pointer hover:bg-amber-500/10 transition-colors"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#012E40] cursor-pointer hover:bg-white/10 transition-colors"
             >
               <Github className="h-5 w-5" />
               <span className="sr-only">Github</span>
@@ -271,7 +271,7 @@ export default function ContactForm() {
                 status: isSubmitting,
                 type: "submit",
                 className:
-                  "w-full group flex items-center justify-center gap-x-3 py-6 px-4 rounded-lg border bg-stone-100 focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 dark:border-x-0 dark:border-b-0 dark:border-t-[1px] dark:border-neutral-500/40 dark:bg-neutral-900 dark:bg-none dark:focus:ring-offset-blue-500 dark:focus-visible:ring-offset-blue-500 hover:bg-amber-500/10 transition-colors text-foreground",
+                  "w-full group flex items-center justify-center gap-x-3 py-6 px-4 rounded-lg border bg-black text-white focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 border-white/20 hover:bg-white hover:text-black transition-colors",
                 disabled: isSubmitting === "loading",
               })}
             </form>

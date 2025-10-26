@@ -15,18 +15,14 @@ export default function LoadingScreen({
   const [isComplete, setIsComplete] = useState(false);
 
   const languages = [
-    { text: "D3f4alt_", lang: "English" },
-    { text: "こんにちは", lang: "Japanese" },
-    { text: "你好", lang: "Chinese" },
-    { text: "Bonjour", lang: "French" },
-    { text: "Hola", lang: "Spanish" },
+    { text: "“Every line of code is a small act of problem-solving", lang: "English" },
   ];
 
   useEffect(() => {
     if (currentLanguageIndex < languages.length) {
       const timer = setTimeout(() => {
         setCurrentLanguageIndex(currentLanguageIndex + 1);
-      }, 1000);
+      }, 3000);
 
       return () => clearTimeout(timer);
     } else {
@@ -45,6 +41,7 @@ export default function LoadingScreen({
       {!isComplete && (
         <motion.div
           className="fixed inset-0 flex items-center justify-center z-50"
+          style={{ background: "linear-gradient(to right, #159B50 0%, 26.010716025328787%, #5c5152 56.35359287261963%, 78.17679643630981%, #74d1a3 100%)" }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
@@ -67,7 +64,7 @@ export default function LoadingScreen({
                     }}
                   >
                     <SparklesText
-                      colors={{ first: "#ffb900", second: "#ff2975" }}
+                      colors={{ first: "white", second: "white" }}
                       className="text-3xl md:text-6xl leading-none"
                       text={item.text}
                     />

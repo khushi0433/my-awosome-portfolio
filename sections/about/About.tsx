@@ -8,10 +8,11 @@ const StatCard = ({ value, label }: { value: string; label: string }) => (
     whileHover={{ y: -8, scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
     transition={{ type: "tween", duration: 0.3 }}
+    className="group"
   >
-    <Card className="gap-2  p-4 border-b-0 border-gray-200 bg-stone-100 dark:border-neutral-500/40 dark:bg-neutral-900">
-      <h3 className="text-amber-500 text-2xl font-medium">{value}</h3>
-      <p className="text-muted-foreground text-sm">{label}</p>
+    <Card className="gap-2 p-4 border-b-0 bg-[#038C3E] border-white/20 hover:bg-white hover:text-black transition-colors">
+      <h3 className="text-white group-hover:text-black text-2xl font-medium">{value}</h3>
+      <p className="text-white group-hover:text-black text-sm">{label}</p>
     </Card>
   </motion.div>
 );
@@ -28,7 +29,7 @@ const SocialLink = ({
     whileTap={{ scale: 0.9 }}
     transition={{ type: "spring", stiffness: 300 }}
     href={href}
-    className="z-10 flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 border-b-0 bg-stone-100 dark:border-neutral-500/40 dark:bg-neutral-900 cursor-pointer"
+    className="z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-[#012E40] cursor-pointer"
   >
     {icon}
   </motion.a>
@@ -118,19 +119,19 @@ const About = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-amber-500 text-3xl font-medium flex items-center gap-3"
+                className="text-white text-3xl font-medium flex items-center gap-3"
               >
                 <motion.span
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="w-8 h-1 bg-amber-500 origin-left"
+                  className="w-8 h-1 bg-white origin-left"
                 />
                 About me
               </motion.h2>
 
               <motion.div
-                className="text-foreground"
+                className="text-white"
                 variants={{
                   visible: {
                     transition: { staggerChildren: 0.05 },
@@ -138,7 +139,7 @@ const About = () => {
                 }}
               >
                 {[
-                  "I'm a passionate full-stack web developer based in Hyderabad, Pakistan My coding journey began back in 2023, and ever since, I’ve been fascinated by how technology can bring ideas to life. With a strong foundation in HTML, CSS, JavaScript, React, and nodejs, I love turning concepts into clean, functional, and creative web experiences. I’m currently deepening my skills in Ai Integration and startups or business management systems, also exploring how design and logic come together to create seamless digital products. Over time, I’ve built projects that solve real problems and helped me grow as both a designer and a developer. I’m always eager to collaborate, learn, and build something meaningful so feel free to explore my work below or reach out if you’d like to connect!",
+                  "I'm a passionate full-stack web developer based in Hyderabad, Pakistan My coding journey began back in 2023, and ever since, I've been fascinated by how technology can bring ideas to life. With a strong foundation in HTML, CSS, JavaScript, React, and nodejs, I love turning concepts into clean, functional, and creative web experiences. I'm currently deepening my skills in Ai Integration and startups or business management systems, also exploring how design and logic come together to create seamless digital products. Over time, I've built projects that solve real problems and helped me grow as both a designer and a developer. I'm always eager to collaborate, learn, and build something meaningful so feel free to explore my work below or reach out if you'd like to connect!",
                 ].map((text, index) => (
                   <motion.span
                     key={index}
@@ -146,11 +147,7 @@ const About = () => {
                       hidden: { opacity: 0, y: 10 },
                       visible: { opacity: 1, y: 0 },
                     }}
-                    className={`inline-block ${
-                      index % 2 === 1
-                        ? "text-muted-foreground font-medium mx-1"
-                        : ""
-                    }`}
+                    className="inline-block text-white"
                   >
                     {text}
                   </motion.span>

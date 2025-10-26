@@ -4,10 +4,8 @@ import { Ripple } from "@/components/magicui/ripple";
 
 export default function FeaturesSection() {
   const CARD = `group flex items-center gap-x-3 py-2 px-4 rounded-lg border
-                     bg-stone-100 focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500
-                      focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 dark:border-x-0 dark:border-b-0 dark:border-t-[1px]
-                       dark:border-neutral-500/40 dark:bg-neutral-900 dark:bg-none dark:focus:ring-offset-blue-500
-                        dark:focus-visible:ring-offset-blue-500`;
+                     bg-[#038C3E] text-white focus:rounded-full focus:outline-none focus:ring-[1.5px] focus:ring-transparent focus:ring-offset-blue-500
+                      focus-visible:ring-offset-2 focus-visible:ring-offset-blue-500 border-white/20 hover:bg-white hover:text-black transition-colors`;
 
   // Animation variants
   const cardVariants = {
@@ -17,7 +15,7 @@ export default function FeaturesSection() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
@@ -63,11 +61,11 @@ export default function FeaturesSection() {
                         fill="currentColor"
                       />
                     </svg>
-                    <span className="w-fit block mx-auto text-5xl font-semibold text-transparent bg-clip-text bg-gradient-to-br from-zinc-300 to-zinc-700 dark:from-zinc-400 dark:to-zinc-700">
+                    <span className="w-fit block mx-auto text-5xl font-semibold text-white group-hover:text-black">
                       100%
                     </span>
                   </div>
-                  <h2 className="mt-6 text-center font-semibold text-3xl  text-amber-500 group-hover:text-amber-600">
+                  <h2 className="mt-6 text-center font-semibold text-3xl text-white group-hover:text-black">
                     Job Flexibility
                   </h2>
                 </div>
@@ -135,10 +133,10 @@ export default function FeaturesSection() {
                     </svg>
                   </div>
                   <div className="mt-6 text-center relative z-10 space-y-2">
-                    <h2 className="text-lg font-medium transition group-hover:text-secondary-950  text-amber-500 group-hover:text-amber-600">
+                    <h2 className="text-lg font-medium transition text-white group-hover:text-black">
                       Security First Approach
                     </h2>
-                    <p className="">
+                    <p className="text-white group-hover:text-black">
                       As a developer, I prioritize building secure solutions,
                       ensuring robust protection against vulnerabilities while
                       delivering reliable and efficient applications.
@@ -239,10 +237,10 @@ export default function FeaturesSection() {
                     </svg>
                   </div>
                   <div className="mt-14 text-center relative z-10 space-y-2">
-                    <h2 className="text-lg font-medium transition text-amber-500 group-hover:text-amber-600">
+                    <h2 className="text-lg font-medium transition text-white group-hover:text-black">
                       Built for Speed & Experience
                     </h2>
-                    <p>
+                    <p className="text-white group-hover:text-black">
                       I craft fast, high-performance applications with a strong
                       focus on user experience. Every interaction is optimized
                       to feel seamless, intuitive, and responsive—because great
@@ -279,10 +277,10 @@ export default function FeaturesSection() {
                       </svg>
                     </div>
                     <div className="space-y-2">
-                      <h2 className="text-lg font-medium transition text-amber-500 group-hover:text-amber-600">
+                      <h2 className="text-lg font-medium transition text-white group-hover:text-black">
                         AI-First. Data-Driven.
                       </h2>
-                      <p className="dark:text-gray-300 text-gray-700">
+                      <p className="text-white group-hover:text-black">
                         I build data-first applications with AI at their
                         core—because in the age of intelligent systems, static
                         portfolios feel outdated. My work blends performance,
@@ -377,10 +375,10 @@ export default function FeaturesSection() {
                       </svg>
                     </div>
                     <div className="space-y-2">
-                      <h2 className="text-lg font-medium transition text-amber-500">
+                      <h2 className="text-lg font-medium transition text-white group-hover:text-black">
                         Built on Collaboration
                       </h2>
-                      <p className="">
+                      <p className="text-white group-hover:text-black">
                         I believe great software is a team effort. From idea to
                         deployment, I prioritize clear communication, seamless
                         collaboration, and shared ownership to build solutions

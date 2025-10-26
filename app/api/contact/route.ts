@@ -21,6 +21,16 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
   },
+  debug: true,
+  logger: true,
+});
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("SMTP connection error:", error);
+  } else {
+    console.log("SMTP connection successful!");
+  }
 });
 
 export async function POST(request: NextRequest) {

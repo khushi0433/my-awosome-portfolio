@@ -12,7 +12,7 @@ import { Section } from "lucide-react";
 
 const baseStyles = {
   body: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F3DE8A",
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
     margin: 0,

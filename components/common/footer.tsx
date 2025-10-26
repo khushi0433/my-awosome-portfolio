@@ -41,14 +41,14 @@ export default function Footer() {
             variants={itemVariants}
           >
             <motion.p
-              className="text-lg font-normal mb-6 text-gray-800 dark:text-gray-300"
+              className="text-lg font-normal mb-6 text-white"
               variants={itemVariants}
             >
               The experience and knowledge allow to create most advanced designs
               — from implementation to final appearance.
             </motion.p>
             <motion.p
-              className="text-sm text-gray-600 dark:text-gray-300"
+              className="text-sm text-white"
               variants={itemVariants}
             >
               Commitment to quality means you unique and valuable — clear and
@@ -60,39 +60,11 @@ export default function Footer() {
             className="flex flex-col md:flex-row gap-3 items-start md:items-center"
             variants={itemVariants}
           >
-            <Link
-              href="https://devalentineomonya.medium.com/"
-              target="_blank"
-              passHref
-              legacyBehavior
-            >
-              <motion.a
-                className="px-4 py-2 border border-gray-300 rounded-full text-xs uppercase tracking-wider dark:text-gray-300"
-                {...hoverScale}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                My Blogs
-              </motion.a>
-            </Link>
-            <Link
-              href="https://youtube.com/devminutes"
-              target="_blank"
-              passHref
-              legacyBehavior
-            >
-              <motion.a
-                className="px-4 py-2 border border-gray-300 rounded-full text-xs uppercase tracking-wider dark:text-gray-300"
-                {...hoverScale}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                Youtube Channel
-              </motion.a>
-            </Link>
           </motion.div>
         </motion.div>
 
         <motion.div
-          className=" border-t border-gray-400 pt-4 text-gray-800 dark:text-gray-200"
+          className=" border-t border-gray-400 pt-4 text-white dark:text-white"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

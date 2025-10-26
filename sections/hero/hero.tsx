@@ -55,8 +55,8 @@ const Hero = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <SparklesText
-                colors={{ first: "#ffb900", second: "#ff2975" }}
-                className="text-6xl md:text-8xl leading-none"
+                colors={{ first: "white", second: "white" }}
+                className="text-6xl md:text-8xl leading-none font-extralight"
                 text="I'm Khushbu_Baloch"
               />
             </motion.div>

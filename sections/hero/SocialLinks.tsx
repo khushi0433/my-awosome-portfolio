@@ -44,12 +44,12 @@ const SocialLinks = ({ orientation = "vertical" }: SocialLinksProps) => {
 
   const lineVariants = {
     rest: {
-      backgroundColor: "#9CA3AF",
+      backgroundColor: "#023535",
       scaleX: 1,
       scaleY: 1,
     },
     hover: {
-      backgroundColor: "#ff2975",
+      backgroundColor: "#fff",
       scaleX: orientation === "vertical" ? 1.2 : 1,
       scaleY: orientation === "horizontal" ? 1.5 : 1,
       transition: { duration: 0.3 },
@@ -96,7 +96,7 @@ const SocialLinks = ({ orientation = "vertical" }: SocialLinksProps) => {
             >
               {orientation === "vertical" && (
                 <motion.span
-                  className="bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#fff] bg-clip-text text-transparent bg-[length:200%_200%] mr-2"
+                  className="bg-gradient-to-b  from-[#012340] via-[#023535] bg-clip-text text-transparent bg-[length:200%_200%] mr-2"
                   variants={textVariants}
                 >
                   {link.label}
@@ -114,7 +114,7 @@ const SocialLinks = ({ orientation = "vertical" }: SocialLinksProps) => {
 
               {orientation === "horizontal" && (
                 <motion.span
-                  className="bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#fff] bg-clip-text text-transparent bg-[length:200%_200%]"
+                  className="bg-gradient-to-b from-[#012340] via-[#023535] to-[#fff] bg-clip-text text-transparent bg-[length:200%_200%]"
                   variants={textVariants}
                 >
                   {link.label}
