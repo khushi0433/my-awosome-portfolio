@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { render } from "@react-email/render";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import { ContactEmailTemplate } from "@/templates/email-templates";
+import dotenv from "dotenv";
+dotenv.config();
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -13,25 +15,7 @@ const contactSchema = z.object({
 
 export type ContactData = z.infer<typeof contactSchema>;
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
-  },
-  debug: true,
-  logger: true,
-});
-
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("SMTP connection error:", error);
-  } else {
-    console.log("SMTP connection successful!");
-  }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
@@ -51,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     const formData = validation.data;
 
-    const contactHtml = render(ContactEmailTemplate({ data: formData }));
+    const contactHtml = await render(ContactEmailTemplate({ data: formData }));
     const textVersion = `New Contact submission:
 
             Name: ${formData.name}
@@ -61,13 +45,17 @@ export async function POST(request: NextRequest) {
             ${formData.message}
                 `;
 
-    await transporter.sendMail({
-      from: "Contact freelancer khushbu -  <khushbubaloch01@gmail.com>",
-      to: process.env.ADMIN_EMAIL,
+    const { data, error } = await resend.emails.send({
+      from: "Acme <onboarding@resend.dev>",
+      to: process.env.ADMIN_EMAIL!,
       subject: `New Contact: ${formData.subject}`,
       text: textVersion,
-      html: await contactHtml,
+      html: contactHtml,
     });
+
+    if (error) {
+      throw new Error(`Resend error: ${error.message}`);
+    }
 
     return NextResponse.json({
       success: true,
