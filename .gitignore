@@ -19,7 +19,8 @@
 /.vscode
 
 
-/public/
+# Ignore only this file
+public/about.me.jpg
 
 # production
 /build
