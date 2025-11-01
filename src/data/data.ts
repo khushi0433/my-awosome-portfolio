@@ -10,18 +10,18 @@ export const projects = [
     },
     {
       span: "Frontend Application",
-      title: "TravelEase",
-      description: "A travel website with dynamic destinations and Tailwind animations.",
-      image: "/project1.png",
-      link: "https://travelease.vercel.app",
-      github: ""
+      title: "MySpace Dashboard",
+      description: "This is a internship task to make a full stack Dashboard with live backend and frontend API",
+      image: "/project3.png",
+      link: "http://myspacedashboard.surge.sh/",
+      github: "https://github.com/khushi0433/MySpace_Dashboard"
     },
     {
       span: "FullStack Application",
-      title: "Food Delivery App",
-      description: "React + Django based food ordering app with live menu and order tracking.",
-      image: "/projects/foodapp.png",
-      link: "https://foodapp.vercel.app",
-      github: "",
+      title: "Email Notification system",
+      description: "A full-fledged email tracking tool built with the MERN stack (MongoDB, Express, React, Node.js). Send emails with detailed tracking capabilities including open rates, click tracking, read time analytics, and more.",
+      image: "/project1.png",
+      link: "https://email-sender-backend-theta.vercel.app/",
+      github: "https://github.com/khushi0433/email-notification-system",
     },
   ];
