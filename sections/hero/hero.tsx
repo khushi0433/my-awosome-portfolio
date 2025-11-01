@@ -86,7 +86,8 @@ const Hero = () => {
             >
               <BeamButton>
                 <Link
-                  href="https://v1.valentinee.dev/resume.pdf"
+                  href="/mycv.pdf"
+                  download={true}
                   target="_blank"
                   className="flex items-center gap-x-2"
                 >

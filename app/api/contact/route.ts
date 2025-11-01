@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
             ${formData.message}
                 `;
 
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "Acme <onboarding@resend.dev>",
       to: process.env.ADMIN_EMAIL!,
       subject: `New Contact: ${formData.subject}`,
