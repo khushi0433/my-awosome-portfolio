@@ -94,7 +94,7 @@ Toggle dark mode logic in `src/components/ThemeToggle.tsx`
 3. Add environment variables during setup
 4. Deploy! 🚀
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdevalentineomonya%2FPortfolio-Website-NextJS-TS-V2)
+deploy with vercel 
 
 ### Other Platforms
 Adjust `next.config.js` if needed for static export:

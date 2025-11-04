@@ -4,7 +4,7 @@ export const projects = [
       span: "FullStack Application",
       title: "AdSpark",
       description: "AdSpark is a modern and responsive website I built for a creative marketing and tech agency. The goal was to design something clean, fast, and visually engaging — with smooth animations, optimized images and videos, and a layout that looks great on any screen. I also integrated a Supabase-powered contact form so visitors can easily reach out in real time. Tech Stack: Next.js, TypeScript, Tailwind CSS, Supabase, Vercel.",
-      image: "/project2.png",
+      image: "/AdSpark.png",
       link: "https://adspark-bay.vercel.app/",
       github: "https://github.com/khushi0433/adspark"
     },
